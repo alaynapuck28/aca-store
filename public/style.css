@@ -1,0 +1,65 @@
+* {
+    font-family: Roboto;
+  }
+  
+  body {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-areas:
+    "search search search"
+    "details products cart";
+  }
+  
+  h3 {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  #listOfThings{
+      grid-area: products;
+      background-color: white;
+      text-align: center;
+  }
+
+
+#searchArea {
+    display:grid;
+    grid-area: search;
+    text-align: center;
+    background-color:#ffe57d;
+  }
+
+  input{
+      padding: 10px;
+      padding-bottom: 5px;
+      width:50%;
+      margin: auto;
+  }
+
+  #searchButton{
+     margin:auto;
+     width:50%;
+  }
+
+  #searchBox {
+    width: 30rem;
+    height: 1rem;
+  }
+
+  #cartDiv{
+      grid-template-areas: cart;
+      text-align: center;
+     background-color: #00c4cc;
+     color: white;
+     
+      
+      }
+  
+  #detailsDiv{
+      grid-area: details;
+      background-color:#ffe57d;
+      color: white;
+  }
+  .productList{
+      text-align: center;
+  }

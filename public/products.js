@@ -66,7 +66,7 @@ const products = [{
 ]
 }, {
   "id": 3,
-  "name": "Almond",
+  "name": "Sweet Almond",
   "description": "A great treat that tastes great",
   "reviews": 27,
   "rating": 5,
