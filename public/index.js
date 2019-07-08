@@ -1,8 +1,10 @@
 let detailsButton = (document.createElement("button").value = "More Details!");
+let itemQuantity=1;
 
 function Products(products) {
   document.getElementById("products").innerHTML = products.map(
     (product, index) => {
+      
      let amount= sessionStorage.getItem(product.id);
      if(amount){
        addToCart(product.id);
@@ -18,7 +20,7 @@ function Products(products) {
 
      <p><button id="moredetails" onclick = "moreDetails(${product.id})">${detailsButton}</button></p>
      <p><button onclick="addToCartAndStore(${product.id})">Add to Cart</button></p>
-     <select id=${product.id -1}>
+     <select id=select-${index} onchange="getValue(${index})">
                     <option value="0">--Quantity--</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -46,7 +48,7 @@ function Search() {
   let filter = input.value;
   let foundProd = [];
   products.map((item, index) => {
-    let nameArray = item.name.split(" ");
+    let nameArray = item.name.toLowerCase().split(" ");
     nameArray.filter(name => {
       if (name == filter) {
         foundProd.push(item);
@@ -68,9 +70,16 @@ function moreDetails(prodId) {
   let foundProd = products.find(p => p.id === prodId);
 
   document.getElementById("productDetail").innerHTML = 
-    `<div>${foundProd.name}</div>
-     <div> Ratings: ${foundProd.rating}/5</div>`;
+    `<div id="moreDetailsCard">
+    <p>${foundProd.name}</p>
+     <p> Ratings: ${foundProd.rating}/5</p>
+     <img src="${foundProd.imgUrl}" alt="image of ${foundProd.name}">
+     <p> Product ID: ${foundProd.id}</p>
+     <p>${foundProd.description}</p>
+     <hr></hr>
+     </div>`;
 }
+
 
 
 
@@ -98,10 +107,35 @@ function addToCart(id) {
   let productId = products.find(function(product) {
     return product.id == id;
   });
-  let cartItems = cartItemsL.innerHTML+ `<li>${productId.name}: ${productId.price}</li>`;
+  let cartItems = cartItemsL.innerHTML+ `<li>${productId.name}: ${productId.price} (${itemQuantity})</li>`;
 
   document.getElementById("cartitems").innerHTML = cartItems;
+}
 
+
+
+//quantity function in progress
+const getValue = index => {
+  const selectIndex = document.getElementById(`select-${index}`)
+  itemQuantity= Number(selectIndex.value)
+  console.log(selectIndex.value);
+  return itemQuantity;
+}
+
+//category
+//function called when category is changed via dropdown menu on homepage
+
+function filterCategory(cat){
+  //if all is selected, displays all products
+  if (cat.toLowerCase() === 'all'){
+      Products(products);
+  }
+  //filters products depending on category selected
+  else{
+      let filteredProducts = products.filter(prod => 
+          prod.category === cat.toLowerCase());
+      Products(filteredProducts);
+  }
 }
 
 //*************** search function not working**********/
@@ -119,7 +153,5 @@ function addToCart(id) {
 //     // moreDetailsButton[i].style.display="none";
 //   }
 // }
-
-
 
 

@@ -14,6 +14,14 @@
         <div id="searchArea">
         <input  id="searchBox" onkeyup="Search()"type="text" id="input">
         <button id="searchButton" onclick="Search()"> <b>Search </b><i class="fas fa-search"></i></button>
+        <div id="dropdown">
+                <select class="dropdown" id='categories' onchange='filterCategory(value)'>
+                    <option class="dropdown-item" value='All'>All</option>
+                    <option class="dropdown-item" value='Electronics'>Electronics</option>
+                    <option class="dropdown-item" value='Food'>Food</option>
+                    <option class="dropdown-item" value='Sporting'>Sporting</option>
+                </select>
+            </div>
         
         </div>
 
@@ -31,6 +39,7 @@
 
         <div id="cartDiv">
             <h1>Shopping Cart</h1>
+           
         <ul id="cartitems">
 
         </ul>
