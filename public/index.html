@@ -1,55 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>My Store</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-   
-</head>
-<body>
-        <div id="searchArea">
-        <input  id="searchBox" onkeyup="Search()"type="text" id="input">
-        <button id="searchButton" onclick="Search()"> <b>Search </b><i class="fas fa-search"></i></button>
-        <div id="dropdown">
-                <select class="dropdown" id='categories' onchange='filterCategory(value)'>
-                    <option class="dropdown-item" value='All'>All</option>
-                    <option class="dropdown-item" value='Electronics'>Electronics</option>
-                    <option class="dropdown-item" value='Food'>Food</option>
-                    <option class="dropdown-item" value='Sporting'>Sporting</option>
-                </select>
-            </div>
-        
-        </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto"rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="searchArea">
+      <input id="searchBox" onkeyup="Search()" type="text" id="input" />
+      <button id="searchButton" onclick="Search()">
+        <b>Search </b><i class="fas fa-search"></i>
+      </button>
+      <div id="dropdown">
+        <select
+          class="dropdown"
+          id="categories"
+          onchange="filterCategory(value)"
+        >
+          <option class="dropdown-item" value="All">All</option>
+          <option class="dropdown-item" value="Electronics">Electronics</option>
+          <option class="dropdown-item" value="Food">Food</option>
+          <option class="dropdown-item" value="Sporting">Sporting</option>
+        </select>
+      </div>
+    </div>
 
-       <div id="listOfThings">
-           <h1>List Of Products</h1>
-            <div id="products">
-           
-            </div>
-        </div>
-       
-        <div id="detailsDiv">
-            <h1>Details</h1>
-            <div id="productDetail"></div>
-        </div>
+    <div id="listOfThings">
+      <h1>List Of Products</h1>
+      <div id="products"></div>
+    </div>
 
-        <div id="cartDiv">
-            <h1>Shopping Cart</h1>
-           
-        <ul id="cartitems">
+    <div id="detailsDiv">
+      <h1>Details</h1>
+      <div id="productDetail"></div>
+    </div>
 
-        </ul>
-        </div>
-       
-   
-   
-   
-   
-     <script src="products.js"></script>    
-    <script src="index.js"></script>   
-</body>
+    <div id="cartDiv">
+      <h1>Shopping Cart</h1>
+
+      <ul id="cartitems"></ul>
+    </div>
+
+    <script src="products.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
