@@ -1,79 +1,76 @@
 * {
-    font-family: Roboto;
-  }
-  
-  body {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 33% 33% 33%;
-    grid-template-areas:
+  font-family: Roboto;
+}
+
+.entirepage {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-areas:
     "search search search"
     "details products cart";
-  }
-  
-  h3 {
-    text-align: center;
-    font-size: 1.5rem;
-  }
-  
-  #moreDetailsCard{
-    background-color: white;
-    color:grey;
-    margin: 12px;
-    padding-top:5px;
-  }
+}
 
-  #listOfThings{
-      grid-area: products;
-      background-color: white;
-      text-align: center;
-      height: 50vw; /* or any value */
-     overflow-y: auto;
-     color:grey;
-     border: 1px grey solid;
-  }
+h3 {
+  text-align: center;
+  font-size: 1.5rem;
+}
 
+#moreDetailsCard {
+  background-color: white;
+  color: grey;
+  margin: 12px;
+  padding-top: 5px;
+}
+
+#listOfThings {
+  grid-area: products;
+  background-color: white;
+  text-align: center;
+  height: 50vw; /* or any value */
+  overflow-y: auto;
+  color: grey;
+  border: 1px grey solid;
+}
 
 #searchArea {
-    display:grid;
-    grid-area: search;
-    text-align: center;
-    background-color:#ffe57d;
-  }
+  display: grid;
+  grid-area: search;
+  text-align: center;
+  background-color: #ffe57d;
+}
 
-  input{
-      padding: 10px;
-      padding-bottom: 5px;
-      margin: auto;
-  }
+input {
+  padding: 10px;
+  padding-bottom: 5px;
+  margin: auto;
+}
 
-  #searchButton{
-     margin:auto;
-     width:31rem;
-  }
+#searchButton {
+  margin: auto;
+  width: 31rem;
+}
 
-  #searchBox {
-    width: 30rem;
-    height: 1rem;
-  }
+#searchBox {
+  width: 30rem;
+  height: 1rem;
+}
 
-  #cartDiv{
-      grid-template-areas: cart;
-      text-align: center;
-     background-color: #00c4cc;
-     color: white;
-     border: 1px grey solid;
-     
-      
-      }
-  
-  #detailsDiv{
-      grid-area: details;
-      background-color:#ffe57d;
-      color: white;
-      text-align: center;
-      border: 1px grey solid;
-  }
-  .productList{
-      text-align: center;
-  }
+#cartDiv {
+  grid-template-areas: cart;
+  text-align: center;
+  background-color: #00c4cc;
+  color: white;
+  border: 1px grey solid;
+}
+
+#detailsDiv {
+  grid-area: details;
+  background-color: #ffe57d;
+  color: white;
+  text-align: center;
+  border: 1px grey solid;
+}
+.productList {
+  text-align: center;
+}

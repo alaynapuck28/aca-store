@@ -1,5 +1,49 @@
 let detailsButton = (document.createElement("button").value = "More Details!");
 let itemQuantity = 1;
+let products = [];
+let txtEmail = document.getElementById("email");
+let txtPassword = document.getElementById("password");
+let btnSignUp = document.getElementById("btnSignUp");
+btnSignUp.onclick = signUp;
+
+class User {
+  constructor(email, password, cartId) {
+    this.email = email;
+    this.password = password;
+    this.cartId = cartId;
+  }
+}
+
+function signUp() {
+  console.log(new User(txtEmail.value, txtPassword.value, null));
+  let newUser = new User(txtEmail.value, txtPassword.value, null);
+  localStorage.setItem("user", JSON.stringify(newUser));
+
+  fetch("https://acastore.herokuapp.com/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newUser)
+  }).then(response => response.json());
+}
+
+window.onload = function() {
+  fetch("https://acastore.herokuapp.com/products")
+    .then(response => response.json())
+
+    .then(myJson => (products = myJson))
+
+    .then(products => {
+      Products(products);
+
+      let storage = localStorage.getItem("user");
+      let signUpDiv = document.getElementById("signup");
+      if (storage) {
+        signUpDiv.style.display = "none";
+      }
+    });
+};
 
 function Products(products) {
   document.getElementById("products").innerHTML = products
@@ -39,9 +83,6 @@ function Products(products) {
     })
     .join(" ");
 }
-
-window.onload = Products(products);
-
 
 //*************Search Function ********/
 function Search() {
