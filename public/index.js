@@ -1,5 +1,5 @@
 let detailsButton = (document.createElement("button").value = "More Details!");
-let itemQuantity = 1;
+let itemQuantity = {};
 let products = [];
 let txtEmail = document.getElementById("email");
 let txtPassword = document.getElementById("password");
@@ -14,20 +14,8 @@ class User {
   }
 }
 
-function signUp() {
-  console.log(new User(txtEmail.value, txtPassword.value, null));
-  let newUser = new User(txtEmail.value, txtPassword.value, null);
-  localStorage.setItem("user", JSON.stringify(newUser));
-
-  fetch("https://acastore.herokuapp.com/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(newUser)
-  }).then(response => response.json());
-}
-
+//onload fetch products and then run Products function
+//if there is anything in localStorage then don't display login div
 window.onload = function() {
   fetch("https://acastore.herokuapp.com/products")
     .then(response => response.json())
@@ -45,13 +33,51 @@ window.onload = function() {
     });
 };
 
+//assigns input value from email and password to new user saved on heroku server
+function signUp() {
+  console.log(new User(txtEmail.value, txtPassword.value, null));
+  let newUser = new User(txtEmail.value, txtPassword.value, null);
+  localStorage.setItem("user", JSON.stringify(newUser));
+
+  fetch("https://acastore.herokuapp.com/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newUser)
+  }).then(response => {
+    // response.then(data => {
+    //   console.log(data);
+    // });
+    console.log("response: ", response.json());
+  });
+}
+
+function createCart(userID) {
+  let newCart = {
+    userID: userID,
+    products: []
+  };
+
+  fetch("https://acastore.herokuapp.com/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newCart)
+  }).then(response => response.json());
+}
+
+//put products in html
+//map through products
 function Products(products) {
   document.getElementById("products").innerHTML = products
     .map((product, index) => {
       let amount = sessionStorage.getItem(product.id);
       if (amount) {
-        addToCart(product.id);
+        addToCart(product.id, amount);
       }
+      itemQuantity[product.id] = 0;
 
       return `<div class="productList">
      
@@ -92,6 +118,7 @@ function Search() {
   let foundProdArr = [];
   products.map((item, index) => {
     //splits up each word in item name and put into an array
+
     let nameArray = item.name.toLowerCase().split(" ");
     nameArray.filter(name => {
       //if the name matches user input then push into array
@@ -123,38 +150,53 @@ function moreDetails(prodId) {
 /************Call both AddToCart and Store Functions ****************/
 function addToCartAndStore(id) {
   //if item in storage already dont add again
-  if (sessionStorage.getItem(id)) return;
-  addToCart(id);
+  let amount = sessionStorage.getItem(id);
+  if (amount) {
+    changeQuantity(id);
+  } else {
+    addToCart(id);
+  }
   Storage(id);
 }
 
 //***************Session Storage*************/
 function Storage(id) {
-  sessionStorage.setItem(id, 1);
+  sessionStorage.setItem(id, itemQuantity[id]);
 }
 
 //*********************Add to Cart *************/
-function addToCart(id) {
+function addToCart(id, quantity = itemQuantity[id]) {
   let cartItemsL = document.getElementById("cartitems");
   let productId = products.find(function(product) {
     return product.id == id;
   });
   let cartItems =
     cartItemsL.innerHTML +
-    `<li>${productId.name}: ${productId.price} (${itemQuantity})</li>`;
+    `<li id="cart-item-${productId.id}">${productId.name}: ${
+      productId.price
+    } (<span class="quantity">${quantity}</span>)
+    </li>`;
 
   document.getElementById("cartitems").innerHTML = cartItems;
+}
+function changeQuantity(productId, quantity) {
+  let quantityElement = document.querySelector(
+    `#cart-item-${productId} .quantity`
+  );
+  console.log(quantityElement);
+  quantityElement.innerHTML = itemQuantity[productId];
 }
 
 //quantity function in progress
 const getValue = index => {
+  console.log(index);
   const selectIndex = document.getElementById(`select-${index}`);
-  itemQuantity = Number(selectIndex.value);
+  itemQuantity[index + 1] = Number(selectIndex.value);
   console.log(selectIndex.value);
-  return itemQuantity;
+  return itemQuantity[index + 1];
 };
 
-//category
+//Fitler products by category
 //function called when category is changed via dropdown menu on homepage
 
 function filterCategory(cat) {
@@ -168,6 +210,16 @@ function filterCategory(cat) {
       prod => prod.category === cat.toLowerCase()
     );
     Products(filteredProducts);
+  }
+}
+/**View Cart *******/
+
+function viewCart() {
+  var cartItems = document.getElementById("cartitems");
+  if (cartItems.style.display === "none") {
+    cartItems.style.display = "block";
+  } else {
+    cartItems.style.display = "none";
   }
 }
 
